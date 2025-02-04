@@ -1,0 +1,30 @@
+﻿@model List<Product>
+<h1> Product List</h1>
+
+<table border="1" width="100%">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Quantity</td>
+                <td>@product.Rate</td>
+                <td>
+                    <a href="/product/details/@product.Id">Details</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
