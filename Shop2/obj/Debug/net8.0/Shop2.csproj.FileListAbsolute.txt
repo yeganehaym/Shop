@@ -28,3 +28,4 @@ C:\Users\Mr Yegane\RiderProjects\Shop2\Shop2\obj\Debug\net8.0\refint\Shop2.dll
 C:\Users\Mr Yegane\RiderProjects\Shop2\Shop2\obj\Debug\net8.0\Shop2.pdb
 C:\Users\Mr Yegane\RiderProjects\Shop2\Shop2\obj\Debug\net8.0\Shop2.genruntimeconfig.cache
 C:\Users\Mr Yegane\RiderProjects\Shop2\Shop2\obj\Debug\net8.0\ref\Shop2.dll
+C:\Users\Mr Yegane\RiderProjects\Shop2\Shop2\obj\Debug\net8.0\Shop2.sourcelink.json

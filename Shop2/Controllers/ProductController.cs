@@ -5,7 +5,7 @@ namespace Shop2.Controllers;
 
 public class ProductController : Controller
 {
-    private List<Product> _products = new List<Product>()
+    private static List<Product> _products = new List<Product>()
     {
         new Product()
         {
@@ -63,6 +63,26 @@ public class ProductController : Controller
         var product = _products.First(item => item.Id == id);
         
         
+        return View(product);
+    }
+
+    [HttpGet]
+    public IActionResult AddProduct()
+    {
+        return View();
+    }
+    
+    [HttpPost]
+    public IActionResult AddProduct(Product product)
+    {
+
+        if (ModelState.IsValid)
+        {
+            product.Id = _products.Max(x => x.Id)+1;
+            _products.Add(product);
+            return RedirectToAction("AddProduct");
+        }
+
         return View(product);
     }
 }
