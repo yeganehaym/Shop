@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Shop2.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationContext>(options =>
+{
+    options.UseSqlServer("Server=.;Database=myDataBase;Trusted_Connection=True;TrustServerCertificate=true");
+});
 
 var app = builder.Build();
 
@@ -22,6 +29,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=product}/{action=List}/{id?}");
+    pattern: "{controller=product}/{action=List}/{productId?}/{id?}");
 
 app.Run();
+

@@ -1,8 +1,17 @@
 ﻿@model Product
 <h1> Product Details</h1>
 
-<strong>Name : </strong> @Model.Name <br/>
-<strong>Brand : </strong> @Model.Brand <br/>
-<strong>Price : </strong> @Model.Price <br/>
-<strong>Quantity : </strong> @Model.Quantity <br/>
-<strong>Description : </strong> @Model.Description <br/>
+@{
+    if (Model == null)
+    {
+        <h1>هیچ محصولی یافت نشد</h1>
+    }
+    else
+    {
+        <strong>Name : </strong> @Model.Name <br/>
+        <strong>Brand : </strong> @Model.Brand <br/>
+        <strong>Price : </strong> @Model.Price <br/>
+        <strong>Quantity : </strong> @Model.Quantity <br/>
+        <strong>Description : </strong> @Model.Description <br/>
+    }
+}

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shop2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+550796450aa68310643f1afdf0e8c692bfb6f4dc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+825ffb1e795825172c217d4c8542df63cc7ce8e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shop2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shop2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -58,12 +58,19 @@ public class ProductController : Controller
         return View(_products);
     }
 
-    public IActionResult Details(int id)
+    public IActionResult Details(int productId)
     {
-        var product = _products.First(item => item.Id == id);
-        
+        var product = _products.FirstOrDefault(item => item.Id == productId);
+
+        // if (product == null)
+        //     return RedirectToAction("Page404","Product");
         
         return View(product);
+    }
+
+    public IActionResult Page404()
+    {
+        return View();
     }
 
     [HttpGet]
