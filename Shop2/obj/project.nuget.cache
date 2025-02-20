@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "SVcOft3pjHDRupp/6A4LP8i9havMDYsNheBnJnfNp5QH9Sz9JZKqXLidtn7FA630SWC4Br4KrOWBZMLxofdLyw==",
+  "dgSpecHash": "1ohbzFA5i8XQeBa9Fmad/WKw70zhc7MLQJ6Bd7iOm6cxjjbxdkoXZVGKSLsxwlQ2qlcKMMTe1c3FtrjaPAjalQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mr Yegane\\RiderProjects\\Shop2\\Shop2\\Shop2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mr Yegane\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Mr Yegane\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\Mr Yegane\\.nuget\\packages\\dntpersianutils.core\\6.6.0\\dntpersianutils.core.6.6.0.nupkg.sha512",
     "C:\\Users\\Mr Yegane\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Mr Yegane\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\Mr Yegane\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",

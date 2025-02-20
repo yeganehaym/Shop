@@ -1,0 +1,47 @@
+﻿@using DNTPersianUtils.Core
+@using System.Globalization
+@model List<Shop2.Entities.User>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Family</th>
+        <th>NatiuonalCode</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>BirthDate</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.NationalCode</td>
+                <td>@user.Address</td>
+                <td>
+                    @{
+                        if (user.IsMale)
+                        {
+                            <span class="badge bg-primary">Male</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Female</span>
+
+                        }
+                    }
+                </td>
+               
+                <td>@user.BirthDate.ToShortPersianDateString()</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+

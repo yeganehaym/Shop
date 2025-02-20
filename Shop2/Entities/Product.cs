@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shop2.Models;
+namespace Shop2.Entities;
 
-public class Product
+public class Product:BaseEntity
 {
-    public int Id { get; set; }
  [Required(ErrorMessage = "نام محصول الزامی است")]
  [MinLength(5,ErrorMessage = "حداقل 5 کاراکتر وارد کنید")]
  [MaxLength(20,ErrorMessage = "حداکثر 20 کاراکتر وارد کنید")]

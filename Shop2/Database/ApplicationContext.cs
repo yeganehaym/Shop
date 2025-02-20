@@ -17,4 +17,8 @@ public class ApplicationContext:DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<Invoice> Invoices { get; set; }
+    public DbSet<InvoiceItem> InvoiceItems { get; set; }
 }

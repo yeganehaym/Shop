@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model ListViewModel
 <h1> Product List</h1>
 <table border="1" width="100%">
     <thead>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     @{
-        foreach (var product in Model)
+        foreach (var product in Model.Products)
         {
             <tr>
                 <td>@product.Name</td>
@@ -28,3 +28,25 @@
     }
     </tbody>
 </table>
+
+@{
+
+    var page = 1;
+    var pageString = Context.Request.Query["page"].ToString();
+    if (!String.IsNullOrEmpty(pageString))
+    {
+        page = int.Parse(pageString);
+    }
+
+    if (page > 1)
+    {
+        <a asp-controller="Product" asp-action="List" asp-route-page="@(page-1)">Prev</a>
+    }
+
+    if (page < Model.TotalPage)
+    {
+        <a asp-controller="Product" asp-action="List" asp-route-page="@(page+1)">Next</a>
+    }
+}
+
+@Model.TotalProducts Product(s) Is Available.

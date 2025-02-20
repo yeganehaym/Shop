@@ -47,6 +47,19 @@
           }
         }
       },
+      "DNTPersianUtils.Core/6.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/DNTPersianUtils.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DNTPersianUtils.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1534,6 +1547,36 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "DNTPersianUtils.Core/6.6.0": {
+      "sha512": "96c/+63ik4U1x1UbHZ4MmiuQMFEu1x6F5PsTSWEZCH95q/NDfvUxyXT1ZFSVh1jxZUEbb6yvgJd6Fh8mIB1tUg==",
+      "type": "package",
+      "path": "dntpersianutils.core/6.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "dntpersianutils.core.6.6.0.nupkg.sha512",
+        "dntpersianutils.core.nuspec",
+        "lib/net46/DNTPersianUtils.Core.dll",
+        "lib/net46/DNTPersianUtils.Core.xml",
+        "lib/net5.0/DNTPersianUtils.Core.dll",
+        "lib/net5.0/DNTPersianUtils.Core.xml",
+        "lib/net6.0/DNTPersianUtils.Core.dll",
+        "lib/net6.0/DNTPersianUtils.Core.xml",
+        "lib/net7.0/DNTPersianUtils.Core.dll",
+        "lib/net7.0/DNTPersianUtils.Core.xml",
+        "lib/net8.0/DNTPersianUtils.Core.dll",
+        "lib/net8.0/DNTPersianUtils.Core.xml",
+        "lib/net9.0/DNTPersianUtils.Core.dll",
+        "lib/net9.0/DNTPersianUtils.Core.xml",
+        "lib/netstandard1.3/DNTPersianUtils.Core.dll",
+        "lib/netstandard1.3/DNTPersianUtils.Core.xml",
+        "lib/netstandard2.0/DNTPersianUtils.Core.dll",
+        "lib/netstandard2.0/DNTPersianUtils.Core.xml",
+        "lib/netstandard2.1/DNTPersianUtils.Core.dll",
+        "lib/netstandard2.1/DNTPersianUtils.Core.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -4000,6 +4043,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "DNTPersianUtils.Core >= 6.6.0",
       "Microsoft.EntityFrameworkCore >= 8.0.12",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.12",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.12",
@@ -4043,6 +4087,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "DNTPersianUtils.Core": {
+            "target": "Package",
+            "version": "[6.6.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.12, )"

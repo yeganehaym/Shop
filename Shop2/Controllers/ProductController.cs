@@ -1,66 +1,64 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop2.Database;
+using Shop2.Entities;
 using Shop2.Models;
 
 namespace Shop2.Controllers;
 
 public class ProductController : Controller
 {
-    private static List<Product> _products = new List<Product>()
+    private ApplicationContext _applicationContext;
+
+    public ProductController(ApplicationContext applicationContext)
     {
-        new Product()
-        {
-            Id = 1,
-            Name = "Laptop Asus TUF Gaming",
-            Brand = "Asus",
-            Price = 20000,
-            Rate = 4,
-            Quantity = 10,
-            Description = "Good laptop"
-        },
-        new Product()
-        {
-            Id = 2,
-            Name = "Optical Mouse",
-            Brand = "A2Tech",
-            Price = 200,
-            Rate = 3,
-            Quantity = 50,
-            Description = "Good Mouse"
-        },
-        new Product()
-        {
-            Id=1002,
-            Name = "Wireless headset",
-            Brand = "A4Tech",
-            Price = 50000,
-            Rate = 5,
-            Quantity = 25,
-            Description = "Good headset"
-        },
-        new Product()
-        {
-            Id = 5000,
-            Name = "TV LG 32 inches",
-            Brand = "LG",
-            Price = 500000,
-            Rate = 4,
-            Quantity = 2,
-            Description = "Good TV 4K"
-        }
-    };
-    
+        _applicationContext = applicationContext;
+    }
+
+
     public IActionResult Index()
     {
         return View();
     }
-    public IActionResult List()
+    public IActionResult List(int page=1)
     {
-        return View(_products);
+        var skip = (page - 1) * 10;
+        var products = _applicationContext.Products.OrderBy(x=>x.Id).Skip(skip).Take(10).ToList();
+        var count = _applicationContext.Products.Count();
+        var totalPage =(int) Math.Ceiling(count / 10f);
+
+        var vm = new ListViewModel()
+        {
+            TotalPage = totalPage,
+            Products = products,
+            TotalProducts = count
+        };
+        return View(vm);
+    }
+
+    public IActionResult AddMore()
+    {
+        for (var i = 0; i < 20; i++)
+        {
+            var p = new Product()
+            {
+                Rate = 3,
+                Quantity = 12,
+                Name = "Product "+ i,
+                Brand = "Brand " + i,
+                Price = 58000,
+                Description = "Desc "+ i
+            };
+            _applicationContext.Add(p);
+        }
+
+        _applicationContext.SaveChanges();
+
+        return Content("20 mahsool ezafe shod");
     }
 
     public IActionResult Details(int productId)
     {
-        var product = _products.FirstOrDefault(item => item.Id == productId);
+        var product = _applicationContext.Products.FirstOrDefault(x => x.Id == productId);
 
         // if (product == null)
         //     return RedirectToAction("Page404","Product");
@@ -85,8 +83,9 @@ public class ProductController : Controller
 
         if (ModelState.IsValid)
         {
-            product.Id = _products.Max(x => x.Id)+1;
-            _products.Add(product);
+
+            _applicationContext.Add(product);
+            _applicationContext.SaveChanges();
             return RedirectToAction("AddProduct");
         }
 
