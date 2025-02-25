@@ -8,4 +8,5 @@ public class Invoice:BaseEntity
     public string Address { get; set; }
     public int Discount { get; set; }
     
+    public List<InvoiceItem> InvoiceItems { get; set; }
 }

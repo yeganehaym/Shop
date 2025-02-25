@@ -54,6 +54,34 @@ namespace Shop2.Migrations
                     b.ToTable("Carts");
                 });
 
+            modelBuilder.Entity("Shop2.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Shop2.Entities.Invoice", b =>
                 {
                     b.Property<int>("Id")
@@ -64,7 +92,8 @@ namespace Shop2.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
@@ -142,6 +171,9 @@ namespace Shop2.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
@@ -167,6 +199,8 @@ namespace Shop2.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
                 });
 
@@ -180,7 +214,8 @@ namespace Shop2.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -190,41 +225,57 @@ namespace Shop2.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsMale")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime?>("ModificationDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NationalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("MobileNumber")
+                        .IsUnique();
+
                     b.HasIndex("NationalCode")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -233,7 +284,7 @@ namespace Shop2.Migrations
             modelBuilder.Entity("Shop2.Entities.Cart", b =>
                 {
                     b.HasOne("Shop2.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("Carts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -247,6 +298,15 @@ namespace Shop2.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Shop2.Entities.Category", b =>
+                {
+                    b.HasOne("Shop2.Entities.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Shop2.Entities.Invoice", b =>
@@ -263,7 +323,7 @@ namespace Shop2.Migrations
             modelBuilder.Entity("Shop2.Entities.InvoiceItem", b =>
                 {
                     b.HasOne("Shop2.Entities.Invoice", "Invoice")
-                        .WithMany()
+                        .WithMany("InvoiceItems")
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -277,6 +337,32 @@ namespace Shop2.Migrations
                     b.Navigation("Invoice");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Shop2.Entities.Product", b =>
+                {
+                    b.HasOne("Shop2.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Shop2.Entities.Category", b =>
+                {
+                    b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("Shop2.Entities.Invoice", b =>
+                {
+                    b.Navigation("InvoiceItems");
+                });
+
+            modelBuilder.Entity("Shop2.Entities.Product", b =>
+                {
+                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }

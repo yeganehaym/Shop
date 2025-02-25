@@ -24,4 +24,10 @@ public class Product:BaseEntity
     [Required]
     [Range(1,5,ErrorMessage = "بین یک تا 5 فقط داریم")]
     public int Rate { get; set; }
+    
+    
+    public Category Category { get; set; }
+    public int CategoryId { get; set; }
+    
+    public List<Cart> Carts { get; set; }
 }

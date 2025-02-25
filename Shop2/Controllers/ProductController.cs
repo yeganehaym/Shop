@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using Shop2.Database;
 using Shop2.Entities;
 using Shop2.Models;
@@ -26,10 +27,44 @@ public class ProductController : Controller
         var count = _applicationContext.Products.Count();
         var totalPage =(int) Math.Ceiling(count / 10f);
 
+        /*var list = new List<ProductViewModel>();
+        foreach (Product product in products)
+        {
+            var pvm=new ProductViewModel()
+            {
+                Id=product.Id,
+                Rate = product.Rate,
+                Description = product.Description,
+                Price = product.Price,
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Quantity = product.Quantity,
+                Brand = product.Brand,
+            };
+            list.Add(pvm);
+        }*/
+        
+        /*var list = products
+            .Select(product => new ProductViewModel()
+            {
+                Id = product.Id,
+                Rate = product.Rate,
+                Description = product.Description,
+                Price = product.Price,
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Quantity = product.Quantity,
+                Brand = product.Brand,
+            })
+            .ToList();*/
+
+        var list = products.Adapt<List<ProductViewModel>>();
+        
+        
         var vm = new ListViewModel()
         {
             TotalPage = totalPage,
-            Products = products,
+            Products = list,
             TotalProducts = count
         };
         return View(vm);
@@ -62,8 +97,20 @@ public class ProductController : Controller
 
         // if (product == null)
         //     return RedirectToAction("Page404","Product");
+
+        var vm = new ProductViewModel()
+        {
+            Id=product.Id,
+            Rate = product.Rate,
+            Description = product.Description,
+            Price = product.Price,
+            Name = product.Name,
+            CategoryId = product.CategoryId,
+            Quantity = product.Quantity,
+            Brand = product.Brand,
+        };
         
-        return View(product);
+        return View(vm);
     }
 
     public IActionResult Page404()
@@ -78,17 +125,28 @@ public class ProductController : Controller
     }
     
     [HttpPost]
-    public IActionResult AddProduct(Product product)
+    public IActionResult AddProduct(ProductViewModel viewModel)
     {
 
         if (ModelState.IsValid)
         {
 
+            var product = new Product()
+            {
+                Name = viewModel.Name,
+                Description = viewModel.Description,
+                Brand = viewModel.Brand,
+                Price = viewModel.Price,
+                Quantity = viewModel.Quantity,
+                Rate = viewModel.Rate,
+                CategoryId = 1,
+            };
+            
             _applicationContext.Add(product);
             _applicationContext.SaveChanges();
             return RedirectToAction("AddProduct");
         }
 
-        return View(product);
+        return View(viewModel);
     }
 }

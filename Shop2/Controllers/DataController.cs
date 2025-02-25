@@ -34,6 +34,8 @@ public class DataController : Controller
             IsMale = true
         };
 
+        
+
         _context.Users.Add(user);
 
         var user2 = new User()

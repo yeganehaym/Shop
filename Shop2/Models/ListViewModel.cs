@@ -6,5 +6,5 @@ public class ListViewModel
 {
     public int TotalPage { get; set; }
     public int TotalProducts { get; set; }
-    public List<Product> Products { get; set; }
+    public List<ProductViewModel> Products { get; set; }
 }

@@ -9,6 +9,7 @@ public class User:BaseEntity
     public bool IsMale { get; set; }
     public DateTime BirthDate { get; set; }
     
+    
     public string Username { get; set; }
     public string Email { get; set; }
     public string MobileNumber { get; set; }
