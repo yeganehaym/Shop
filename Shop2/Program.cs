@@ -1,14 +1,23 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Shop2;
 using Shop2.Database;
+using Shop2.Entities;
+using Shop2.Mapster;
+using Shop2.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation();
+
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     options.UseSqlServer("Server=.;Database=myDataBase;Trusted_Connection=True;TrustServerCertificate=true");
-});
+})
+.AddMapsterConfigs();
+
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Shop2.Database;
 using Shop2.Entities;
@@ -9,10 +10,11 @@ namespace Shop2.Controllers;
 public class ProductController : Controller
 {
     private ApplicationContext _applicationContext;
-
-    public ProductController(ApplicationContext applicationContext)
+    private IMapper _mapper;
+    public ProductController(ApplicationContext applicationContext,IMapper mapper)
     {
         _applicationContext = applicationContext;
+        _mapper = mapper;
     }
 
 
@@ -58,8 +60,8 @@ public class ProductController : Controller
             })
             .ToList();*/
 
-        var list = products.Adapt<List<ProductViewModel>>();
-        
+      //  var list = products.Adapt<List<ProductViewModel>>();
+      var list = _mapper.Map<List<ProductViewModel>>(products);
         
         var vm = new ListViewModel()
         {
@@ -98,7 +100,7 @@ public class ProductController : Controller
         // if (product == null)
         //     return RedirectToAction("Page404","Product");
 
-        var vm = new ProductViewModel()
+        /*var vm = new ProductViewModel()
         {
             Id=product.Id,
             Rate = product.Rate,
@@ -108,7 +110,9 @@ public class ProductController : Controller
             CategoryId = product.CategoryId,
             Quantity = product.Quantity,
             Brand = product.Brand,
-        };
+        };*/
+
+        var vm = _mapper.Map<ProductViewModel>(product);
         
         return View(vm);
     }
@@ -131,16 +135,7 @@ public class ProductController : Controller
         if (ModelState.IsValid)
         {
 
-            var product = new Product()
-            {
-                Name = viewModel.Name,
-                Description = viewModel.Description,
-                Brand = viewModel.Brand,
-                Price = viewModel.Price,
-                Quantity = viewModel.Quantity,
-                Rate = viewModel.Rate,
-                CategoryId = 1,
-            };
+            var product = _mapper.Map<Product>(viewModel);
             
             _applicationContext.Add(product);
             _applicationContext.SaveChanges();

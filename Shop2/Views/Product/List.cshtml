@@ -1,8 +1,10 @@
-﻿@model ListViewModel
+﻿@using DNTPersianUtils.Core
+@model ListViewModel
 <h1> Product List</h1>
 <table border="1" width="100%">
     <thead>
     <tr>
+        <th>Creation Date</th>
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
@@ -15,13 +17,14 @@
         foreach (var product in Model.Products)
         {
             <tr>
+                <td>@product.CreationDateTime.ToShortPersianDateString()</td>
                 <td>@product.Name</td>
                 <td>@product.Price</td>
                 <td>@product.Quantity</td>
                 <td>@product.Rate</td>
                 <td>
                     <a asp-controller="Product" asp-action="Details" asp-route-productId="@product.Id">Details</a>
-                    
+
                 </td>
             </tr>
         }

@@ -16,6 +16,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var s = "1";
+        var i = s.ToInt();
         return View();
     }
 
@@ -28,5 +30,13 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+}
+
+public static class NumberUtility
+{
+    public static int ToInt(this string s)
+    {
+        return int.Parse(s);
     }
 }

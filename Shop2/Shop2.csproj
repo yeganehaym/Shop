@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="DNTPersianUtils.Core" Version="6.5.0" />
       <PackageReference Include="Mapster" Version="7.4.2-pre02" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.3-pre02" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.13" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.12" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.12" />
@@ -21,6 +22,13 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Views\Data\Index.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\js\dist\jalalidatepicker.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\dist\jalalidatepicker.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\dist\jalalidatepicker.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\dist\jalalidatepicker.min.js" />
     </ItemGroup>
 
 </Project>

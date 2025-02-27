@@ -30,4 +30,5 @@ public class Product:BaseEntity
     public int CategoryId { get; set; }
     
     public List<Cart> Carts { get; set; }
+    
 }
