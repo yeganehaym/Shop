@@ -1,0 +1,79 @@
+﻿@model Shop2.Models.UserViewModel
+
+@{
+    Layout = "_UserLayout";
+}
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    
+    <div class="form-group">
+        <label>نام</label>
+        <input type="text" class="form-control" placeholder="Name" asp-for="FirstName"/>
+    </div>
+
+
+    <div class="form-group">
+        <label>نام خانوادگی</label>
+        <input type="text" class="form-control" placeholder="LastName" asp-for="LastName"/>
+    </div>
+
+    <div class="form-group">
+        <label>ایمیل</label>
+        <input type="text" class="form-control" placeholder="Email" asp-for="Email"/>
+    </div>
+
+    <div class="form-group">
+        <label>شماره موبایل</label>
+        <input type="text" class="form-control" placeholder="MobileNumber"  asp-for="MobileNumber"/>
+    </div>
+
+
+    <div class="form-group">
+        <label>آدرس</label>
+        <textarea asp-for="Address" class="form-control" rows="3" cols="80" placeholder="Address"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>تاریخ تولد</label>
+        <input type="text" class="form-control" data-jdp placeholder="BirthDate" asp-for="BirthDate"/>
+    </div>
+
+
+    <div class="form-group">
+        <label>جنسیت</label>
+        <input type="radio" class="form-check" placeholder="Name" name="isMale" value="true" checked=""/>مذکر
+        <input type="radio" class="form-check" placeholder="Name" name="isMale" value="false"/>مونث
+    </div>
+
+    <div class="form-group">
+        <label>کد ملی</label>
+        <input type="text" class="form-control" placeholder="NationalCode" asp-for="NationalCode"/>
+    </div>
+
+    <div class="form-group">
+        <label>نام کاربری</label>
+        <input type="text" class="form-control" placeholder="Username" asp-for="Username"/>
+    </div>
+
+    <div class="form-group">
+        <label>کلمه عبور</label>
+        <input type="text" class="form-control" placeholder="Password" asp-for="Password"/>
+    </div>
+
+    <div class="form-group">
+        <label>تکرار کلمه عبور</label>
+        <input type="text" class="form-control" placeholder="RePassword" asp-for="RePassword"/>
+    </div>
+  <div class="form-group">
+        <button class="btn btn-primary" type="submit">ثبت نام</button>
+    </div>
+</form>
+
+@section Scripts
+{
+    <script>
+         jalaliDatepicker.startWatch();
+    </script>
+}
+

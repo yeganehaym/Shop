@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -25,7 +26,12 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-controller="Product" asp-action="AddProduct">Add Product</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="User" asp-action="Logout">Logout</a>
+                    </li>
+                    
                 </ul>
+                خوش آمدید <strong>@User.GetName() - @User.GetUserId()</strong> 
             </div>
         </div>
     </nav>

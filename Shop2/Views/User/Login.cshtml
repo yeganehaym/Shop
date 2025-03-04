@@ -1,0 +1,36 @@
+﻿@model LoginViewModel
+@{
+    Layout = "_UserLayout";
+}
+
+<h1>View Bag : @ViewBag.ReturnUrl</h1>
+@{
+    if (ViewData["ReturnUrl"] != null)
+    {
+        <h1>View Data : @ViewData["ReturnUrl"].ToString()</h1>
+    }
+}
+
+@{
+    if (TempData["ReturnUrl"] != null)
+    {
+        <h1>Temp Data : @TempData["ReturnUrl"].ToString()</h1>
+
+    }
+}
+
+<form method="post">
+    <input type="hidden" asp-for="ReturnUrl"/>
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label>نام کاربری</label>
+        <input type="text" class="form-control" asp-for="Username" placeholder="Username"/>
+    </div>
+    <div class="form-group">
+        <label>کلمه عبور</label>
+        <input class="form-control" type="password" asp-for="Password" placeholder="Password"/>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">ورود به سیستم</button>
+    </div>
+</form>

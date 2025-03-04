@@ -1,4 +1,5 @@
 using Mapster;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Shop2;
 using Shop2.Database;
@@ -18,6 +19,15 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 })
 .AddMapsterConfigs();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/user/login";
+        options.LogoutPath = "/user/logout";
+        options.ExpireTimeSpan=TimeSpan.FromMinutes(15);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/user/login";
+    });
 
 var app = builder.Build();
 
@@ -34,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

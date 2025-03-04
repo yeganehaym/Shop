@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop2.Database;
 using Shop2.Entities;
@@ -22,6 +23,8 @@ public class ProductController : Controller
     {
         return View();
     }
+    
+    [Authorize]
     public IActionResult List(int page=1)
     {
         var skip = (page - 1) * 10;
@@ -122,12 +125,14 @@ public class ProductController : Controller
         return View();
     }
 
+    [Authorize(Roles = "ADD")]
     [HttpGet]
     public IActionResult AddProduct()
     {
         return View();
     }
     
+    [Authorize(Roles = "ADD")]
     [HttpPost]
     public IActionResult AddProduct(ProductViewModel viewModel)
     {

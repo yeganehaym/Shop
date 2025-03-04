@@ -1,0 +1,19 @@
+﻿@model CookieModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Cookie</h2>
+@{
+    if (Model != null)
+    {
+        @Model.Value
+    }
+}
+
+<form method="post">
+    <input type="text" class="form-control" placeholder="Cookie Value" asp-for="Value"/>
+    <button class="btn btn-success" type="submit">Save</button>
+</form>
