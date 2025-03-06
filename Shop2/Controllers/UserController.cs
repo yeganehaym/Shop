@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shop2.Database;
 using Shop2.Entities;
 using Shop2.Models;
+using Shop2.Services;
 
 namespace Shop2.Controllers;
 
@@ -13,11 +14,13 @@ public class UserController : Controller
 {
     private IMapper _mapper;
     private ApplicationContext _context;
+    private UserService _userService;
 
-    public UserController(IMapper mapper, ApplicationContext context)
+    public UserController(IMapper mapper, ApplicationContext context,UserService userService)
     {
         _mapper = mapper;
         _context = context;
+        _userService = userService;
     }
 
     [HttpGet]
@@ -34,15 +37,9 @@ public class UserController : Controller
        {
            var user = _mapper.Map<Entities.User>(viewModel);
 
-           var exists = _context.Users.Select(u => new
-               {
-                   Email=_context.Users.Any(x=>x.Email==user.Email),
-                   Mobile=_context.Users.Any(x=>x.MobileNumber==user.MobileNumber),
-                   NationalCode=_context.Users.Any(x=>x.NationalCode==user.NationalCode),
-                   Username=_context.Users.Any(x=>x.Username==user.Username),
-               })
-               .FirstOrDefault();
 
+
+           var exists = _userService.CheckExistence(user);
 
            if (exists != null)
            {
@@ -72,7 +69,7 @@ public class UserController : Controller
                }
            }
            
-           _context.Users.Add(user);
+           _userService.AddUser(user);
            var rows=_context.SaveChanges();
 
            if (rows > 0)
@@ -118,9 +115,8 @@ public class UserController : Controller
                ModelState.AddModelError("login","نام کاربری مورد نظر یافت نشد");
                return View(viewModel);
            }
-           
-           var hashedPassword = viewModel.Password.Hash();
-           var user = _context.Users.FirstOrDefault(x => x.Username == viewModel.Username && x.Password == hashedPassword);
+
+           var user = _userService.Login(viewModel.Username, viewModel.Password);
            if (user == null)
            {
                ModelState.AddModelError("login"," کلمه عبور صحیح نیست");

@@ -30,5 +30,7 @@ public class ProductViewModel
     
     
     public int CategoryId { get; set; }
+    
+    public IFormFile Image { get; set; }
 
 }

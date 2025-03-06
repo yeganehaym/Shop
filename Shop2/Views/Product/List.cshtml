@@ -4,6 +4,7 @@
 <table border="1" width="100%">
     <thead>
     <tr>
+        <th>Image</th>
         <th>Creation Date</th>
         <th>Name</th>
         <th>Price</th>
@@ -17,6 +18,9 @@
         foreach (var product in Model.Products)
         {
             <tr>
+                <td>
+                    <img style="width: 64px;" src="@Url.Action("ShowImage","Product",new {productId=product.Id})"/>
+                </td>
                 <td>@product.CreationDateTime.ToShortPersianDateString()</td>
                 <td>@product.Name</td>
                 <td>@product.Price</td>

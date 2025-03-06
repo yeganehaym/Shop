@@ -4,6 +4,10 @@ namespace Shop2.Entities;
 
 public class Product:BaseEntity
 {
+    public Product()
+    {
+        CreationDateTime=DateTime.Now;
+    }
  [Required(ErrorMessage = "نام محصول الزامی است")]
  [MinLength(5,ErrorMessage = "حداقل 5 کاراکتر وارد کنید")]
  [MaxLength(20,ErrorMessage = "حداکثر 20 کاراکتر وارد کنید")]
@@ -31,4 +35,6 @@ public class Product:BaseEntity
     
     public List<Cart> Carts { get; set; }
     
+    public string? ImageName { get; set; }
+    public byte[] ImageBytes { get; set; }
 }

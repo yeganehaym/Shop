@@ -1,6 +1,6 @@
 ﻿@model ProductViewModel
 <h1>Add Product</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     
     <div asp-validation-summary="All"></div>
     <div class="mb-2">
@@ -20,6 +20,8 @@
     <textarea  class="form-control"  asp-for="Description" rows="3" cols="20"></textarea>
     <span style="color: red" asp-validation-for="Description"></span>
 
+    <label>تصویر محصول</label>
+    <input type="file" asp-for="Image"/>
 
     <button type="submit">Save</button>
 </form>

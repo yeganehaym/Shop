@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shop2.Database;
 using Shop2.Entities;
 using Shop2.Models;
+using Shop2.Services;
 
 namespace Shop2.Controllers;
 
@@ -12,10 +13,14 @@ public class ProductController : Controller
 {
     private ApplicationContext _applicationContext;
     private IMapper _mapper;
-    public ProductController(ApplicationContext applicationContext,IMapper mapper)
+    private ProductService _productService;
+    private IWebHostEnvironment _environment;
+    public ProductController(ApplicationContext applicationContext,IMapper mapper, ProductService productService, IWebHostEnvironment environment)
     {
         _applicationContext = applicationContext;
         _mapper = mapper;
+        _productService = productService;
+        _environment = environment;
     }
 
 
@@ -27,9 +32,8 @@ public class ProductController : Controller
     [Authorize]
     public IActionResult List(int page=1)
     {
-        var skip = (page - 1) * 10;
-        var products = _applicationContext.Products.OrderBy(x=>x.Id).Skip(skip).Take(10).ToList();
-        var count = _applicationContext.Products.Count();
+        var products = _productService.GetProducts(page);
+        var count = _productService.GetProductCount();
         var totalPage =(int) Math.Ceiling(count / 10f);
 
         /*var list = new List<ProductViewModel>();
@@ -98,7 +102,7 @@ public class ProductController : Controller
 
     public IActionResult Details(int productId)
     {
-        var product = _applicationContext.Products.FirstOrDefault(x => x.Id == productId);
+        var product = _productService.GetProductById(productId);
 
         // if (product == null)
         //     return RedirectToAction("Page404","Product");
@@ -141,12 +145,62 @@ public class ProductController : Controller
         {
 
             var product = _mapper.Map<Product>(viewModel);
-            
-            _applicationContext.Add(product);
+
+            if (viewModel.Image != null && viewModel.Image.Length > 0)
+            {
+                var ms = new MemoryStream();
+                viewModel.Image.CopyTo(ms);
+                ms.Seek(0,SeekOrigin.Begin);
+                var bytes=ms.ToArray();
+                
+                
+                //خیره بایتی در دیتابیس
+                product.ImageBytes = bytes;
+                
+                //ذخیره به صورت فایل سیستم
+
+                var wwwroot = _environment.ContentRootPath;
+                var path = "images/products/";
+                var now = DateTime.Now;
+                //var filename1 = $"{now.Year}-{now.Month}-{now.Day}--{now.Hour}-{now.Minute}-{now.Second}-userid.jpg";
+                var fileName = Guid.NewGuid().ToString().Substring(0, 10) + ".jpg";
+
+                var fullPath = Path.Combine(wwwroot, path);
+                var fullName = Path.Combine(fullPath, fileName);
+
+                Directory.CreateDirectory(fullPath);
+                System.IO.File.WriteAllBytes(fullName,bytes);
+                product.ImageName = fileName;
+            }
+
+            product.CategoryId = 1;
+            _productService.AddProduct(product);
             _applicationContext.SaveChanges();
             return RedirectToAction("AddProduct");
         }
 
         return View(viewModel);
+    }
+
+    public IActionResult ShowImage(int productId)
+    {
+        var product = _productService.GetProductById(productId);
+        
+        var wwwroot = _environment.ContentRootPath;
+        var path = "images/products/";
+        var name = product.ImageName;
+
+        if (name == null)
+            return new EmptyResult();
+
+        var fullName = Path.Combine(wwwroot, path, name);
+        if (!System.IO.File.Exists(fullName))
+            return new EmptyResult();
+        
+
+        var bytes = System.IO.File.ReadAllBytes(fullName);
+
+        return File(bytes, "images/jpg");
+
     }
 }
