@@ -6,6 +6,7 @@ using Shop2.Database;
 using Shop2.Entities;
 using Shop2.Mapster;
 using Shop2.Models;
+using Shop2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,19 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/user/login";
     });
 
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<CategoryService>();
+
+
+
 var app = builder.Build();
+
+using (var scope=app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    context.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

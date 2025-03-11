@@ -14,4 +14,5 @@ public class BaseEntity
     public DateTime CreationDateTime { get; set; }
     public DateTime? ModificationDateTime { get; set; }
     
+    public DateTime? RemoveTime { get; set; }
 }
